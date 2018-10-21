@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_task1_task1,task1.task1,model_task1_task1,,1,0,0,0
+access_my_first_odoo_app_delivery,access_my_first_odoo_app_delivery,model_my_first_odoo_app_delivery,base.group_user,1,0,0,0
+access_task1_classes,access_task1_classes,model_task1_classes,base.group_user,1,0,0,0
+access_my_first_odoo_app_project,access_my_first_odoo_app_project,model_my_first_odoo_app_project,base.group_user,1,0,0,0
+access_task1_student,access_task1_student,model_task1_student,base.group_user,1,0,0,0

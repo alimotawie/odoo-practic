@@ -1,0 +1,134 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="my_first_odoo_app.saleorder">
+      <field name="name">sale.order.form.my_first_odoo_app.inherit</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form" />
+      <field name="arch" type="xml">
+
+        <field name="payment_term_id" position="before">
+
+          <field name="appartementno"/>
+          <field name="appartementad"/>
+
+        </field>
+
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="my_first_odoo_app.producttemplate">
+      <field name="name">product.template.my_first_odoo_app.inherit</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_only_form_view" />
+      <field name="arch" type="xml">
+
+          <xpath expr="//field[@name='sale_ok']"  position="before">
+
+           <div>
+             <field name="isdublex"/>
+             <label for="isdublex"/>
+           </div>
+
+           <div>
+             <field name="isvilla"/>
+             <label for="isvilla"/>
+           </div>
+
+           <div>
+             <field name="isstudio"/>
+             <label for="isstudio"/>
+           </div>
+
+      </xpath>
+
+         <xpath expr="//page[@name='notes']"  position="after">
+
+           <page string="delivery details"  attrs="{'invisible': [('isstudio','!=',True)]}" >
+
+             <group >
+             <field name="project_id" />
+             </group>
+
+               <group >
+
+             <field name="project_id" />
+             <field name="delivery_id" domain="[('delivery_id','=', project_id )]" />
+
+             </group>
+
+           </page>
+
+         </xpath>
+
+
+        </field>
+    </record>
+
+
+
+      <!-- main menu items  -->
+
+    <menuitem name="project delivery date" id="my_first_odoo_app.delivery" parent="sale.prod_config_main"
+              action="my_first_odoo_app.action_window_delivery"/>
+
+       <menuitem name="project developers" id="my_first_odoo_app.project" parent="sale.prod_config_main"
+              action="my_first_odoo_app.action_window_project"/>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="my_first_odoo_app.action_window_delivery">
+      <field name="name"> project delivery times </field>
+      <field name="res_model">my_first_odoo_app.delivery</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+       <record model="ir.actions.act_window" id="my_first_odoo_app.action_window_project">
+      <field name="name"> big developers </field>
+      <field name="res_model">my_first_odoo_app.project</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="my_first_odoo_app.action_server">
+      <field name="name">myFirstOdooApp server</field>
+      <field name="model_id" ref="model_my_first_odoo_app_my_first_odoo_app"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="myFirstOdooApp" id="my_first_odoo_app.menu_root"/>
+    -->
+    <!-- menu categories -->
+
+    <!--<menuitem name="project delivery date" id="my_first_odoo_app.delivery" parent="my_first_odoo_app.menu_root"/>-->
+
+    <!-- actions -->
+
+
+<!-- Inherit  report (from module sale) -->
+<template id="report_quotation_inherit_demo" inherit_id="sale.report_saleorder_document">
+
+   <xpath expr='//div[@name="payment_term"]'  position="before">
+
+     <div >
+                    <strong> testing QWEB REporting </strong>
+                </div>
+
+   </xpath>
+</template>
+
+
+  </data>
+</odoo>

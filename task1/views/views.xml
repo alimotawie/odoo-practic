@@ -1,0 +1,97 @@
+<odoo>
+  <data>
+
+    <record model="ir.actions.act_window" id="student_list_action">
+            <field name="name">School Students</field>
+            <field name="res_model">task1.student</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+<delete model="ir.actions.report.xml" id="task1_Classes_report" />
+    <record model="ir.ui.view" id="student_list">
+            <field name="name">New Student </field>
+            <field name="model">task1.student</field>
+            <field name="arch" type="xml">
+                <form >
+                    <sheet>
+                      <group>
+                        <field name="image" widget='image' class="oe_avatar"/>
+                        <field name="name"/>
+                         <field name="dateOfBirth"/>
+                         <field name="age"  />
+                         <field name="SNN"/>
+                         <field name="email"/>
+                         <field name="class_id"/>
+                      </group>
+                      </sheet>
+                    </form>
+                 </field>
+
+          </record>
+
+    <menuitem id="task1_students" name="student"
+                  action="student_list_action"/>
+
+
+    <record model="ir.ui.view" id="task1.list">
+      <field name="name">task1_list</field>
+      <field name="model">task1.student</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="age"/>
+          <field name="class_id"/>
+
+        </tree>
+      </field>
+    </record>
+
+      <record model="ir.ui.view" id="task1_age_filter" >
+      <field name="name">task1.age.filter</field>
+      <field name="model">task1.student</field>
+      <field name="arch" type="xml">
+        <search>
+          <filter string="age >= 10" name="age" domain="[('age', '>', 10)]"/>
+        </search>
+      </field>
+      </record>
+
+
+       <record model="ir.actions.act_window" id="class_list_action">
+            <field name="name">My Class</field>
+            <field name="res_model">task1.classes</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+<menuitem id="task1_classes" name="My Class"
+                  action="class_list_action"/>
+
+      <record model="ir.ui.view" id="classlist">
+            <field name="name">New Class</field>
+            <field name="model">task1.classes</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                      <group>
+                        <field name="name"/>
+                      </group>
+                        <group>
+                              <field name="student_id" nolabel="1" widget="one2many_list">
+                                  <tree string="Details">
+                                  <field name="name" />
+                                  <field name="email" />
+                                  <field name="SNN" />
+                                    </tree>
+                                </field>
+
+                        </group>
+                      </sheet>
+                    </form>
+    </field>
+      </record>
+
+
+
+
+  </data>
+</odoo>

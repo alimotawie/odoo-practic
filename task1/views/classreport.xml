@@ -1,0 +1,50 @@
+<odoo>
+<data>
+
+
+
+    <report
+    id="task1_Classes_report"
+    model="task1.classes"
+    string="My Classes"
+    report_type="qweb-html"
+    name="task1.classreport"
+    file="task1.classreport"
+/>
+       <template id="classreport">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.external_layout">
+
+                <div class="page">
+                    <h2>My Class </h2>
+                    <p>This report for class <span t-field="o.name"/></p>
+
+                </div>
+
+                <table border="1" style="width:100%;">
+                    <tr>
+
+                        <td> Name </td>
+                        <td> Age </td>
+                        <td> Email</td>
+
+                    </tr>
+
+                <t t-foreach="o.student_id" t-as="student">
+                    <tr>
+                        <td> <t t-esc="student.name"/> </td>
+                        <td><t t-esc="student.age"/> </td>
+                        <td><t t-esc="student.email"/> </td>
+                     </tr>
+                    </t>
+                </table>
+
+
+            </t>
+        </t>
+    </t>
+</template>
+
+</data>
+</odoo>
