@@ -13,7 +13,6 @@ import dateutil
 class student(models.Model):
 
     _name ='task1.student'
-    _inherit = 'res.users'
 
     name = fields.Char(string='student name' , required=True)
     age = fields.Integer(string='student age',compute="_compute_age" ,store=True )
@@ -22,8 +21,7 @@ class student(models.Model):
     dateOfBirth = fields.Date( string="student date of birth" , required=True)
     image=fields.Binary(attachment=True, help="student image" , string="student image")
     class_id = fields.Many2one('task1.classes', string="student class" , required=True)
-    User = fields.Many2one('res.user', string="Student user")
-    add_user=fields.Many2one('res.user')
+    userID = fields.Many2one('res.user', string="Student user" , ondelete='cascade')
 
 
 
@@ -59,6 +57,23 @@ class student(models.Model):
     #
     #             return True
 
+    @api.model
+    def create(self, vals):
+
+
+        user = self.env["res.users"].create({'name':vals.get('name'),'login':vals.get('email')}).id
+
+        vals.update({'userID':user})
+        record = super(student, self).create(vals)
+
+        return record
+
+    @api.model
+    def write(self, vals):
+
+       
+        return True
+
 
 class classes(models.Model):
     _name ="task1.classes"
@@ -68,22 +83,9 @@ class classes(models.Model):
 
 
 
-class res_users(models.Model):
-    _inherit = 'res.users'
-
-    @api.model
-    def create(self, vals):
-
-        res = super(res_users, self).create(vals)
-
-        res.create({
-            'name': self.name, 'email': self.email
-        })
-        return res
-
-class createStudentUser(models.Model):
-    _inherit = 'res.users'
-    student_id = fields.One2many("task1.student", 'class_id', string="my students")
+# class createStudentUser(models.Model):
+#     _inherit = 'res.users'
+#     student_id = fields.One2many("task1.student", 'class_id', string="my students")
 
 
 

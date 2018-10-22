@@ -1,6 +1,17 @@
 <odoo>
   <data>
 
+      <record model="ir.actions.act_window" id="school_users">
+            <field name="name">School users</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+      <menuitem id="user_school" name="School users"
+                  action="school_users"/>
+
+
     <record model="ir.actions.act_window" id="student_list_action">
             <field name="name">School Students</field>
             <field name="res_model">task1.student</field>
